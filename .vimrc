@@ -1,5 +1,5 @@
 execute pathogen#infect()
-
+:autocmd VimResized * wincmd =
 
 noremap i k
 noremap k j
@@ -9,8 +9,6 @@ noremap e $
 noremap da daw
 noremap de d$
 noremap dq d^
-inoremap <Tab> <ESC>
-vnoremap <Tab> <ESC>
 noremap f i
 noremap F I
 noremap G dawi
@@ -31,7 +29,9 @@ noremap H <C-Y>
 
 set autoread
 
-set wildmenu
+
+set splitbelow
+set splitright
 
 set wildignore=*.o,*~,*.pyc
 if has("win16") || has("win32")
@@ -216,6 +216,8 @@ let g:ale_set_balloons = 1
 
 let g:cpp_class_decl_highlight = 1
 
+set runtimepath^=~/.vim/bundle/ctrlp.vim
+
 " ----- Emulate 'gf' but recognize :line format -----
 function! GotoFile(w)
     let curword = expand("<cfile>")
@@ -260,3 +262,12 @@ autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checkti
 " https://vi.stackexchange.com/questions/13091/autocmd-event-for-autoread
 autocmd FileChangedShellPost *
   \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
+
+nmap <silent> <C-i> :wincmd k<CR>
+nmap <silent> <C-k> :wincmd j<CR>
+nmap <silent> <C-j> :wincmd h<CR>
+nmap <silent> <C-l> :wincmd l<CR>
+set wildmenu
+
+nnoremap <C-]> g<C-]>
+map <C-\> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
